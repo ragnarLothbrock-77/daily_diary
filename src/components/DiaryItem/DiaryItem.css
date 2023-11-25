@@ -1,0 +1,29 @@
+.diary-item {
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px 30px;
+}
+
+.diary-item__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.diary-item__content {
+  display: flex;
+  gap: 10px;
+}
+
+.diary-item__date {
+  color: rgba(255, 255, 255, 0.40);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.diary-item__text {
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+}
