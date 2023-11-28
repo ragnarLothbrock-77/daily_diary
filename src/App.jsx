@@ -1,33 +1,56 @@
 import './App.css';
-import Button from './components/Button/Button';
-import CardButton from './components/CardButton/CardButton';
-import DiaryItem from './components/DiaryItem/DiaryItem';
+import Header from './components/Header/Header';
+import EntryAddButton from './components/EntryAddButton/EntryAddButton';
+import Navbar from './layouts/Navbar/Navbar';
+import Entryes from './components/Entryes/Entryes';
+import Content from './layouts/Content/Content';
+import { useState } from 'react';
+import DiaryForm from './components/DiaryForm/DiaryForm';
+
+const INITIAL_DATA = [
+  // {
+  //   id: 1,
+  //   title: 'Mountain walking',
+  //   text: 'Lorem ipsum',
+  //   date: new Date()
+  // },
+  // {
+  //   id: 2,
+  //   title: 'Doctor visit',
+  //   text: 'Lorem ipsum',
+  //   date: new Date()
+  // },
+  // {
+  //   id: 3,
+  //   title: 'Shopping',
+  //   text: 'Lorem ipsum',
+  //   date: new Date()
+  // }
+];
 
 function App() {
-  const data = [
-    {
-      title: 'Mountain walking',
-      text: 'Lorem ipsum',
-      date: new Date()
-    },
-    {
-      title: 'Doctor visit',
-      text: 'Lorem ipsum',
-      date: new Date()
-    }
-  ];
+  const [items, setItems] = useState(INITIAL_DATA);
+
+  const addItem = item => {
+    setItems(oldItems => [...oldItems, {
+      id: oldItems.length > 0 ? Math.max(...oldItems.map(i => i.id + 1)) : 1,
+      title: item.title,
+      text: item.text,
+      date: new Date(item.date)
+    }]);
+  };
 
   return (
-    <>
-      <h1>Diary</h1>
-      <Button />
-      <CardButton>
-        <DiaryItem title={data[0].title} text={data[0].text} date={data[0].date} />
-      </CardButton>
-      <CardButton>
-        <DiaryItem title={data[1].title} text={data[1].text} date={data[1].date} />
-      </CardButton>
-    </>
+    <div className="app__wrapper">
+      <Navbar>
+        <Header />
+        <EntryAddButton />
+        <Entryes items={items} />
+      </Navbar>
+      <Content>
+        <DiaryForm onSubmit={addItem} />
+      </Content>
+    </div>
   );
 }
 

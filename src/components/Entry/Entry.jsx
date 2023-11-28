@@ -1,6 +1,6 @@
-import './DiaryItem.css';
+import './Entry.css';
 
-export default function DiaryItem({ title, text, date }) {
+export default function Entry({ title, text, date }) {
   const formatedData = new Intl.DateTimeFormat('ru-RU').format(date);
 
   return (
