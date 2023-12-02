@@ -4,7 +4,7 @@ import EntryAddButton from './components/EntryAddButton/EntryAddButton';
 import Navbar from './layouts/Navbar/Navbar';
 import Entryes from './components/Entryes/Entryes';
 import Content from './layouts/Content/Content';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DiaryForm from './components/DiaryForm/DiaryForm';
 
 const INITIAL_DATA = [
@@ -29,7 +29,24 @@ const INITIAL_DATA = [
 ];
 
 function App() {
-  const [items, setItems] = useState(INITIAL_DATA);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      setItems(data.map(item => ({
+        ...item,
+        date: new Date()
+      })));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (items.length) {
+      localStorage.setItem('data', JSON.stringify(items));
+    }
+  }, [items]);
+
 
   const addItem = item => {
     setItems(oldItems => [...oldItems, {
@@ -38,6 +55,7 @@ function App() {
       text: item.text,
       date: new Date(item.date)
     }]);
+
   };
 
   return (
